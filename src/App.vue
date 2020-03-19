@@ -20,6 +20,7 @@ html{
 body{
 	height:100%;
 	width:100%;
+	background-image: url(assets/bg.png);
 }	
 	
 #app {
@@ -29,6 +30,10 @@ body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-image: url(assets/bg.png);
+  
+}
+
+div{
+	display: inline-block;
 }
 </style>

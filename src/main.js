@@ -10,6 +10,8 @@ import '../node_modules/echarts/map/js/world.js' // 引入世界地图
 
 Vue.config.productionTip = false
 
+Vue.prototype.bus=new Vue()
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

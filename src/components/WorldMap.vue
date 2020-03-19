@@ -18,7 +18,7 @@
 	  },
 	  mounted () {
 	    this.getWorld()
-		//点击事件,根据点击某个省份计算出这个省份的数据
+		
 	  },
 	  methods: {
 		  //***************************************************
@@ -183,12 +183,25 @@
 	          index = -1
 	        }
 	      }, 2000)*/
-		  chart.on('click', function(params){
-			console.log(params);//此处写点击事件内容
+		  
+		  //用箭头函数，this指向函数定义时的作用域
+		  chart.on('click', (params)=>{
+			//console.log(this)
+			this.findObjByName(params.name);//此处写点击事件内容
 		})
+		
 	    },
 	  
 	  //**********************************
+	  findObjByName(name){
+		  let result = this.worldData.find(function (obj) { if (obj.provinceName== name) { return obj;}});
+	      this.toPie(result)
+	  },
+	  
+	  //给兄弟组件PieChart一个对象
+	  toPie(obj) {
+	     this.bus.$emit("toPie", obj);
+	  }
 
 	  }
 	}
@@ -202,5 +215,6 @@
 		border-style: solid;
 		border-width: 5px;
 		margin: 0 auto;
+		display: inline-block;
 	}
 </style>
