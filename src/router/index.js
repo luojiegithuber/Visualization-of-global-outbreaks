@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import WorldMap from '@/components/WorldMap'
 import Home from '@/components/Home'
 import PieChart from '@/components/PieChart'
+import clock from '@/components/clock'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
 	  path: '/PieChart',
 	  name: 'PieChart',
 	  component: PieChart
+	},
+	{
+	  path: '/clock',
+	  name: 'clock',
+	  component: clock
 	},
   ]
 })

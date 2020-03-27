@@ -1,9 +1,19 @@
 <template>
 	<div>
-	  <my-piechart></my-piechart>
+	  
+	  <div class="pie_line_contain">
+	  <my-globalpie></my-globalpie><br/>
+	  <my-globalchart></my-globalchart>
+	  </div>
+	  <div class="pie_line_contain">
+	  <my-clock></my-clock><br/>
 	  <my-worldmap></my-worldmap>
+	  	  </div>
+	  <div class="pie_line_contain">
+	  <my-piechart></my-piechart><br/>
 	  <my-linechart></my-linechart>
-	  <button @click="getData()">测试按钮</button>
+	  </div>
+	  
 	</div>
 </template>
 
@@ -11,6 +21,10 @@
 	import WorldMap from '@/components/WorldMap';
 	import PieChart from '@/components/PieChart';
 	import LineChart from '@/components/LineChart';
+	import GlobalChart from '@/components/GlobalChart';
+	import GlobalPie from '@/components/GlobalPie';
+	import clock from '@/components/clock'
+	
 	import axios from 'axios'
 	export default {
 		
@@ -18,6 +32,9 @@
 		    'my-worldmap':WorldMap,
 		    'my-piechart':PieChart,
 			'my-linechart':LineChart,
+			'my-globalchart':GlobalChart,
+			'my-globalpie':GlobalPie,
+			'my-clock':clock,
 		  },
 		
 		  data () {
@@ -34,18 +51,76 @@
              })*/
 		  },
 		  methods:{
+			  
+			 //消耗接口的操作，慎用 
+			 getNewData(){
+				 this.getData()
+				 this.getData3()
+			 },
+			  
+			 //获得疫情最新消息,同时更新地图
              getData(){
 				 
-				 new Promise(function (resolve,reject) {
+			 new Promise(function (resolve,reject) {
+			     //请求的是newslist
 			     axios({
 			        url: '/Feiyanapi/txapi/ncovabroad/index?key=8904de751142e1a252a8e864174bb93d',
 			        method: 'get',
 			        }).then((res)=>resolve(res.data.newslist))
 				 
-				 }).then((p_res)=>this.postOutbreak(p_res))
+				 }).then((p_res)=>{this.postOutbreak(p_res);this.updateNewslist(p_res)})
+			 },
+			 
+			 //获得疫情最新消息————————用于更新worldmap
+			 getData2(){
+			 				 
+			 new Promise(function (resolve,reject) {
+			     //请求的是newslist
+			     axios({
+			        url: '/Feiyanapi/txapi/ncovabroad/index?key=8904de751142e1a252a8e864174bb93d',
+			        method: 'get',
+			        }).then((res)=>resolve(res.data.newslist))
+			 				 
+			 				 }).then((p_res)=>{this.updateNewslist(p_res)})
 			 },
              
-			 //将最新数据发送给数据库
+			 //获得疫情最新消息————————用于更新GlobalPie
+			 getData3(){
+			 				 
+			 new Promise(function (resolve,reject) {
+			     //请求的是全球的总趋势数据
+			     axios({
+			        url: '/Feiyanapi/txapi/ncov/index?key=8904de751142e1a252a8e864174bb93d',
+			        method: 'get',
+			        }).then((res)=>resolve(res.data.newslist[0].desc.globalStatistics))//obj
+			 				 
+			 	}).then((p_res)=>{this.updateInc(p_res)})
+			 },
+			 
+			 //更新globalOutbreak数据库的newslist
+			 updateNewslist(newslist){
+			 	axios({
+			 	     url: '/api/globalOutbreak/updateNewslist',
+			 	     method: 'post',
+					 data: {data:newslist},
+			 	 }).then((res) => {
+                     console.log(res)
+			 	 }) 
+			 },
+			 
+			 //更新globalOutbreak数据库的inc
+			 updateInc(inc_data){
+			 	axios({
+			 	     url: '/api/globalOutbreak/updateInc',
+			 	     method: 'post',
+			 		 data: {data:inc_data},
+			 	 }).then((res) => {
+			         console.log(res)
+			 	 }) 
+			 },
+			 
+			 
+			 //将最新数据发送给outbreak数据库并更新数据库outbreak
 			 postOutbreak(newslist){
 				 console.log(newslist)
                   axios({
@@ -57,18 +132,7 @@
                    })
 			 },
 			 
-			 test(){
-				 axios({
-				      url: '/api/outbreaks/',
-				      method: 'get',
-				  }).then((res) => {
-				      console.log(res)
-				  })
-			 },
-			 
-			 s(){
-				 console.log(new Date())
-			 }
+			 //更新完数据库之后
 			 
 		  }
 	}
@@ -76,10 +140,11 @@
 </script>
 
 <style>
-	my-worldmap{
-		display: inline-block;
-	}
-	my-piechart{
-		display: inline-block;
-	}
+.pie_line_contain{
+	border-color:#fff;
+	border-style: solid;
+	border-width: 2px;
+	text-align: center;
+}
+
 </style>

@@ -36,10 +36,12 @@
 		              resolve();
 		          })
 		  }).then(function (){
-		      return axios.get('static/data.json') // 重要，注意添加了return
+		      return axios.get('/api/globalOutbreak/getNewslist') // 重要，注意添加了return
 		          .then(function(res){
-		              let newslist=res.data.newslist//代表对象数组
-					  that.worldData=res.data.newslist
+					  console.log(res)
+		              let newslist=res.data.message//代表对象数组
+					  that.worldData=res.data.message
+					  
 					  
 					  //遍历对象，生成仅仅包含值和value的
 					  newslist.forEach(function(val,index,arr){
@@ -71,7 +73,7 @@
 	      // 绘制图表
 	      chart.setOption({
 	        // 图表主标题
-	        title: {
+	        /*title: {
 	          text: '世界疫情地图', // 主标题文本，支持使用 \n 换行
 	          top: 20, // 定位 值: 'top', 'middle', 'bottom' 也可以是具体的值或者百分比
 	          left: 'center', // 值: 'left', 'center', 'right' 同上
@@ -80,7 +82,7 @@
 	            fontWeight: 600,
 	            color: '#fff'
 	          }
-	        },
+	        },*/
 			
 	        // 提示框组件
 	        tooltip: {
@@ -99,7 +101,7 @@
 	          // 指定 visualMapContinuous 组件的允许的最小/大值。'min'/'max' 必须用户指定。
 	          // [visualMap.min, visualMax.max] 形成了视觉映射的『定义域』
 	          min: 0,
-	          max: 40000,
+	          max: 60000,
 	          // 文本样式
 	          textStyle: {
 	            fontSize: 14,
@@ -194,14 +196,24 @@
 	  
 	  //**********************************
 	  findObjByName(name){
-		  let result = this.worldData.find(function (obj) { if (obj.provinceName== name) { return obj;}});
-	      this.toPie(result)
+		  //把名字给LineChart让他自己处理事务
+		  this.toLine(name)
+		  
+		  //把结果给PieChart 数据可视化
+		  let Pie_result = this.worldData.find(function (obj) { if (obj.provinceName== name) { return obj;}});
+		  this.toPie(Pie_result)
 	  },
 	  
 	  //给兄弟组件PieChart一个对象
 	  toPie(obj) {
 	     this.bus.$emit("toPie", obj);
+	  },
+	  
+	  //给兄弟组件LineChart一个名字
+	  toLine(name){
+		 this.bus.$emit("toLine", name);  
 	  }
+	  //************************************
 
 	  }
 	}
@@ -210,10 +222,11 @@
 <style>
 		
 	#chart{
-		width:800px;
-		height:500px;
-		border-style: solid;
-		border-width: 5px;
+		width:900px;
+		height:700px;
+	/*border-color:#fff;
+	border-style: solid;
+	border-width: 4px;*/
 		margin: 0 auto;
 		display: inline-block;
 	}
