@@ -38,10 +38,10 @@
 			  updateTime() {
 			      var cd = new Date();
                   //中午12点更新数据
-				  if(cd.getHours()==12&&cd.getMinutes()==22&&cd.getSeconds()==22){this.$parent.getNewData()}
+				  if(cd.getHours()==12&&cd.getMinutes()==0&&cd.getSeconds()==0){this.$parent.getNewData()}
 				  
 				  //去尾式更新
-				  if(cd.getHours()==23&&cd.getMinutes()==55&&cd.getSeconds()==0){this.$parent.getNewData()}
+				  if(cd.getHours()==23&&cd.getMinutes()==54&&cd.getSeconds()==0){this.$parent.getNewData()}
 				  
 			      this.time = this.zeroPadding(cd.getHours(), 2) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2);
 			      this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2) + ' ' + this.week[cd.getDay()];
