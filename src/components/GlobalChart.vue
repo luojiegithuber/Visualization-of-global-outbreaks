@@ -16,6 +16,8 @@ export default {
 				 currentConfirmedIncr_Arr : [],
 				 curedIncr_Arr : [],
 				 deadIncr_Arr : [],
+				 
+				 day_Arr:[],
 		  }
 
 	  },	  
@@ -24,10 +26,44 @@ export default {
 	  },
 	  
 	  mounted () {
+	   this.dayArr()
        this.initGlobalChart()
 	   this.getGlobalChartData()
 	  },
 	  methods:{
+		  //今天是周几？
+		   dayArr() {
+		        let dayarr=[]
+		        let map = new Map()
+		     
+		        map.set(0,"周日")
+		        map.set(1,"周一")
+		        map.set(2,"周二")
+		        map.set(3,"周三")
+		        map.set(4,"周四")
+		        map.set(5,"周五")
+		        map.set(6,"周六")
+		         
+			   var today;
+			   //12点前播的都是昨天的数据	
+			   if(new Date().getHours()<12){
+				   today = new Date().getDay()-1
+			   }
+			   else{
+				   today = new Date().getDay()
+			   } 
+		    
+		     
+		        let count=7
+		     
+		        while(count){
+		        	today++
+		         dayarr.push(map.get(today%7))
+		        	count--
+		        }
+		     
+		        this.day_Arr=dayarr
+		  			   },
 		  
 		  
 		getGlobalChartData(){

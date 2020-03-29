@@ -104,7 +104,7 @@
 			 	     method: 'post',
 					 data: {data:newslist},
 			 	 }).then((res) => {
-                     console.log(res)
+                     //console.log(res)
 			 	 }) 
 			 },
 			 
@@ -115,20 +115,20 @@
 			 	     method: 'post',
 			 		 data: {data:inc_data},
 			 	 }).then((res) => {
-			         console.log(res)
+			         //console.log(res)
 			 	 }) 
 			 },
 			 
 			 
 			 //将最新数据发送给outbreak数据库并更新数据库outbreak
 			 postOutbreak(newslist){
-				 console.log(newslist)
+				 //console.log(newslist)
                   axios({
                        url: '/api/outbreaks/newAll',
                        method: 'post',
                        data: {data:newslist},
                    }).then((res) => {
-                       console.log(res)
+                       //console.log(res)
                    })
 			 },
 			 

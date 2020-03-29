@@ -41,7 +41,7 @@ export default {
 		 	 
 		 	 this.initLine()
 		 });
-		 console.log(this.day_Arr)
+		 //console.log(this.day_Arr)
 	  },
 	  
 	  mounted () {
@@ -60,8 +60,15 @@ export default {
 		       map.set(4,"周四")
 		       map.set(5,"周五")
 		       map.set(6,"周六")
-		    
-		       let today = new Date().getDay()
+		        
+			   var today;
+			   //12点前播的都是昨天的数据	
+			   if(new Date().getHours()<12){
+				   today = new Date().getDay()-1
+			   }
+			   else{
+				   today = new Date().getDay()
+			   } 
 		    
 		       let count=7
 		    
@@ -81,7 +88,7 @@ export default {
 			     method: 'get',
 			 }).then((res) => {
 			     this.LineChart_data=res
-				 console.log(this.LineChart_data)
+				 //console.log(this.LineChart_data)
 				 console.log("7天数据可以的")
 			 })   
 		} ,
