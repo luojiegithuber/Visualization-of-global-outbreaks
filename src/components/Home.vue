@@ -44,11 +44,23 @@
 	
 		  },
 		  created () {
-            //const chatTimer = setInterval(this.s , 1000);
+			  var that=this
 
-           /* this.$once('hook:beforeDestroy', () => {
-              clearInterval(chatTimer);
-             })*/
+            document.onkeydown = function(e) {
+
+            let e1 = e || event || window.event || arguments.callee.caller.arguments[0]
+
+            if (e1 && e1.keyCode == 113) {
+
+                 var person = prompt("请输入你的操作：");
+                 if (person=="手动更新") {
+                     that.getNewData();
+					 alert("手动更新操作执行")
+                 } else {
+                     alert("无用的操作")
+                 }
+            }
+         }
 		  },
 		  methods:{
 			  
@@ -92,7 +104,7 @@
 			     axios({
 			        url: '/Feiyanapi/txapi/ncov/index?key=8904de751142e1a252a8e864174bb93d',
 			        method: 'get',
-			        }).then((res)=>resolve(res.data.newslist[0].desc.globalStatistics))//obj
+			        }).then((res)=>resolve(res.data.newslist[0].desc.foreignStatistics))//obj
 			 				 
 			 	}).then((p_res)=>{this.updateInc(p_res)})
 			 },

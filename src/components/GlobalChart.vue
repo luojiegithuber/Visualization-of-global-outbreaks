@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p id="globalchart_title">全球各病例较昨日增长柱状图</p>
+		<p id="globalchart_title">海外各病例较昨日增长柱状图</p>
 		<div id='globalchart'></div>
 	</div>	
 </template>
@@ -155,7 +155,7 @@ export default {
             axisTick: {
                 show: false
             },
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            data: this.day_Arr
         }
     ],
     series: [

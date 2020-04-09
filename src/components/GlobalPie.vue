@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p id="globalpie_title">全球病例比例图</p>
+		<p id="globalpie_title">海外病例比例图</p>
 		<div id='globalpie'></div>
 	</div>	
 </template>
@@ -37,7 +37,7 @@ export default {
 			     method: 'get',
 			 }).then((res) => {
 			     this.globalPieData=[]
-			     console.log(res)
+			     //console.log(res)
 				 let obj = res.data.message.newslist[0]
 			     if(obj.currentConfirmedCount!=0)this.globalPieData.push({value:obj.currentConfirmedCount,name:"现存确诊"})
 			     if(obj.deadCount!=0)this.globalPieData.push({value:obj.deadCount,name:"累计死亡"})
