@@ -33,7 +33,7 @@ export default {
 		 this.dayArr()
          this.getSevendayData()
 		 this.bus.$on("toLine", msg => {
-			 console.log("传值成功啦")
+			 //console.log("传值成功啦")
 			 
 		 	 this.name=msg
 			 
@@ -84,19 +84,18 @@ export default {
 		//请求数据
 		getSevendayData(){		   
 			axios({
-			     url: '/api/outbreaks/getAll',
+			     url: '/api/outbreaks/getAll2',
 			     method: 'get',
 			 }).then((res) => {
+
 			     this.LineChart_data=res
-				 //console.log(this.LineChart_data)
-				 console.log("7天数据可以的")
 			 })   
 		} ,
 		
 		//根据 名字 得到三个数据数组
 		getCountByName(name){
 			let result = this.LineChart_data.data.message.find(function (obj) { if (obj.name== name) { return obj;}});
-			console.log(result)
+			//console.log(result)
 			
 			//更新可视化的数组
 			this.currentConfirmedCount=result.currentConfirmedCount.slice(-7)

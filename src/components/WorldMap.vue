@@ -16,6 +16,14 @@
 		  }
 
 	  },
+	  
+	    beforeCreate() {
+	      this.bus.$on("toWorldMap", msg => {
+	        this.findObjByName(msg)
+	      });
+	    },
+	  
+	  
 	  mounted () {
 	    this.getWorld()
 		
@@ -224,9 +232,6 @@
 	#chart{
 		width:900px;
 		height:700px;
-	/*border-color:#fff;
-	border-style: solid;
-	border-width: 4px;*/
 		margin: 0 auto;
 		display: inline-block;
 	}

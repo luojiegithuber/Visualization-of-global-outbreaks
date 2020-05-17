@@ -5,6 +5,7 @@ import WorldMap from '@/components/WorldMap'
 import Home from '@/components/Home'
 import PieChart from '@/components/PieChart'
 import clock from '@/components/clock'
+import Scatter from '@/components/scatter-plot';
 
 Vue.use(Router)
 
@@ -16,9 +17,9 @@ export default new Router({
       component: Home
     },
 	{
-	  path: '/',
-	  name: 'WorldMap',
-	  component: WorldMap
+	  path: '/Scatter',
+	  name: 'Scatter',
+	  component: Scatter
 	},
 	{
 	  path: '/PieChart',

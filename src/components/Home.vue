@@ -6,9 +6,11 @@
 	  <my-globalchart></my-globalchart>
 	  </div>
 	  <div class="pie_line_contain">
-	  <my-clock></my-clock><br/>
-	  <my-worldmap></my-worldmap>
-	  	  </div>
+	  <my-clock></my-clock><br/><br/>
+
+	  <my-worldmap v-if="isMap"></my-worldmap>
+	  <my-scatter v-if="isScatter"></my-scatter>
+	  </div>
 	  <div class="pie_line_contain">
 	  <my-piechart></my-piechart><br/>
 	  <my-linechart></my-linechart>
@@ -19,6 +21,7 @@
 
 <script>
 	import WorldMap from '@/components/WorldMap';
+	import Scatter from '@/components/scatter-plot';
 	import PieChart from '@/components/PieChart';
 	import LineChart from '@/components/LineChart';
 	import GlobalChart from '@/components/GlobalChart';
@@ -35,11 +38,14 @@
 			'my-globalchart':GlobalChart,
 			'my-globalpie':GlobalPie,
 			'my-clock':clock,
+			'my-scatter':Scatter
 		  },
 		
 		  data () {
 			  return {
-
+                 isMap:true,
+				 isScatter:false,
+				 radio:1
 			  }
 	
 		  },
@@ -56,19 +62,38 @@
                  if (person=="手动更新") {
                      that.getNewData();
 					 alert("手动更新操作执行")
-                 } else {
+                 } else if(person=="删除重复"){
+					 that.deleteRepeat()
+					 alert("删除重复")
+					 
+				 } else{
                      alert("无用的操作")
                  }
+				 
+				 
             }
          }
 		  },
 		  methods:{
 			  
+			  changeMain(val){
+				 if(val=='1'){
+					 this.isMap=true
+					 this.isScatter=false
+				 }else{
+					 this.isMap=false
+					 this.isScatter=true
+				 }
+			  },
+			  
 			 //消耗接口的操作，慎用 
 			 getNewData(){
 				 this.getData()
 				 this.getData3()
+				
 			 },
+			  
+			  
 			  
 			 //获得疫情最新消息,同时更新地图
              getData(){
@@ -80,7 +105,7 @@
 			        method: 'get',
 			        }).then((res)=>resolve(res.data.newslist))
 				 
-				 }).then((p_res)=>{this.postOutbreak(p_res);this.updateNewslist(p_res)})
+				 }).then((p_res)=>{console.log("得到网络上的数据了，现在第二次请求");this.postOutbreak(p_res);this.updateNewslist(p_res)})
 			 },
 			 
 			 //获得疫情最新消息————————用于更新worldmap
@@ -116,9 +141,10 @@
 			 	     method: 'post',
 					 data: {data:newslist},
 			 	 }).then((res) => {
-                     //console.log(res)
+                     console.log(res)
 			 	 }) 
 			 },
+			 
 			 
 			 //更新globalOutbreak数据库的inc
 			 updateInc(inc_data){
@@ -127,7 +153,7 @@
 			 	     method: 'post',
 			 		 data: {data:inc_data},
 			 	 }).then((res) => {
-			         //console.log(res)
+			         console.log(res)
 			 	 }) 
 			 },
 			 
@@ -140,11 +166,19 @@
                        method: 'post',
                        data: {data:newslist},
                    }).then((res) => {
-                       //console.log(res)
+                       console.log(res)
                    })
 			 },
 			 
-			 //更新完数据库之后
+			 //看一下后台
+			 seeBack(){
+			      axios({
+			           url: '/api/outbreaks/hello',
+			           method: 'get',
+			       }).then((res) => {
+			           console.log(res)
+			       })
+			 },
 			 
 		  }
 	}

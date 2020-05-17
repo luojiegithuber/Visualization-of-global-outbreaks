@@ -4,6 +4,8 @@
 		<p class="title">罗杰的疫情天眼<hr/></p>
 	    <p class="date">{{ date }}</p>
 	    <p class="time">{{ time }}</p>
+		<el-radio v-model="radio" label="1">世界地图</el-radio>
+		<el-radio v-model="radio" label="2">散点图</el-radio>
 	</div>
 	
 	<div class="clock">
@@ -25,7 +27,8 @@
                   date:'',
 				  time:'',
 				  week:['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
-				  timerID:null
+				  timerID:null,
+				  radio:"1"
 			  }
 	
 		  },	  
@@ -33,6 +36,12 @@
 			  this.timerID = setInterval(this.updateTime, 1000);
 			  this.updateTime();
 	      },
+		  watch:{
+			  radio(val) {
+			          this.$parent.changeMain(val)
+			        }
+			  
+		  },
 		  methods:{
 			  
 
@@ -40,10 +49,10 @@
 			  updateTime() {
 			      var cd = new Date();
                   //中午12点更新数据
-				  if(cd.getHours()==12&&cd.getMinutes()==5&&cd.getSeconds()==0){this.$parent.getNewData();alert("数据有更新，请刷新界面")}
+				  if(cd.getHours()==12&&cd.getMinutes()==5&&cd.getSeconds()==0){this.$parent.getNewData();console.log("数据有更新，请刷新界面")}
 				  
 				  //去尾式更新
-				  if(cd.getHours()==23&&cd.getMinutes()==55&&cd.getSeconds()==0){this.$parent.getNewData();alert("数据有更新，请刷新界面")}
+				  if(cd.getHours()==23&&cd.getMinutes()==55&&cd.getSeconds()==0){this.$parent.getNewData();console.log("数据有更新，请刷新界面")}
 				  
 			      this.time = this.zeroPadding(cd.getHours(), 2) + ':' + this.zeroPadding(cd.getMinutes(), 2) + ':' + this.zeroPadding(cd.getSeconds(), 2);
 			      this.date = this.zeroPadding(cd.getFullYear(), 4) + '-' + this.zeroPadding(cd.getMonth()+1, 2) + '-' + this.zeroPadding(cd.getDate(), 2) + ' ' + this.week[cd.getDay()];
@@ -68,7 +77,7 @@
 	}
 	
 	.clock {
-		vertical-align: top;
+	  vertical-align: top;
 	  display: inline-block;
 	  font-family: 'Share Tech Mono', monospace;
 	  color: #ffffff;
