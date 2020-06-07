@@ -1,17 +1,18 @@
 <template>
-	<div>
+	<div id="home_div">
 	  
-	  <div class="pie_line_contain">
+	  <div class="pie_line_contain1">
 	  <my-globalpie></my-globalpie><br/>
 	  <my-globalchart></my-globalchart>
 	  </div>
-	  <div class="pie_line_contain">
+	  
+	  <div class="pie_line_contain2">
 	  <my-clock></my-clock><br/><br/>
 
 	  <my-worldmap v-if="isMap"></my-worldmap>
 	  <my-scatter v-if="isScatter"></my-scatter>
 	  </div>
-	  <div class="pie_line_contain">
+	  <div class="pie_line_contain1">
 	  <my-piechart></my-piechart><br/>
 	  <my-linechart></my-linechart>
 	  </div>
@@ -88,9 +89,8 @@
 			  
 			 //消耗接口的操作，慎用 
 			 getNewData(){
-				 this.getData()
-				 this.getData3()
-				
+				this.getData()
+				this.getData3()
 			 },
 			  
 			  
@@ -101,7 +101,7 @@
 			 new Promise(function (resolve,reject) {
 			     //请求的是newslist
 			     axios({
-			        url: '/Feiyanapi/txapi/ncovabroad/index?key=8904de751142e1a252a8e864174bb93d',
+			        url: '/Feiyanapi/txapi/ncovabroad/index?key=8904de751142e1a252a8e864174bb93d',//*****************************************
 			        method: 'get',
 			        }).then((res)=>resolve(res.data.newslist))
 				 
@@ -123,11 +123,11 @@
              
 			 //获得疫情最新消息————————用于更新GlobalPie
 			 getData3(){
-			 				 
+			 		
 			 new Promise(function (resolve,reject) {
 			     //请求的是全球的总趋势数据
 			     axios({
-			        url: '/Feiyanapi/txapi/ncov/index?key=8904de751142e1a252a8e864174bb93d',
+			        url: '/Feiyanapi/txapi/ncov/index?key=8904de751142e1a252a8e864174bb93d',//****************************************
 			        method: 'get',
 			        }).then((res)=>resolve(res.data.newslist[0].desc.foreignStatistics))//obj
 			 				 
@@ -186,11 +186,31 @@
 </script>
 
 <style>
-.pie_line_contain{
+.pie_line_contain1{
 	border-color:#fff;
 	border-style: solid;
 	border-width: 2px;
 	text-align: center;
+    
+    height: 1000px;
+
+}
+
+.pie_line_contain2{
+	border-color:#fff;
+	border-style: solid;
+	border-width: 2px;
+	text-align: center;
+
+    height: 1000px;
+}
+
+#home_div{
+	display: flex;
+    width: 100%;
+    border-color:#444;
+    border-style: solid;
+    border-width: 2px;
 }
 
 </style>

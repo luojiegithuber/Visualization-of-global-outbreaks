@@ -109,7 +109,7 @@
 	          // 指定 visualMapContinuous 组件的允许的最小/大值。'min'/'max' 必须用户指定。
 	          // [visualMap.min, visualMax.max] 形成了视觉映射的『定义域』
 	          min: 0,
-	          max: 60000,
+	          max: 100000,
 	          // 文本样式
 	          textStyle: {
 	            fontSize: 14,
@@ -119,7 +119,7 @@
 	          calculable: true, // 是否显示拖拽用的手柄
 	          // 定义 在选中范围中 的视觉元素
 	          inRange: {
-	            color: ['#eae0e0', '#e60003'] // 图元的颜色
+	            color: ['#eae0e0', '#a80002'] // 图元的颜色
 	          }
 	        },
 	        series: [
