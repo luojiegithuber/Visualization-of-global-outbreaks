@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div id="globalpie">
 		<p id="globalpie_title">海外病例比例图</p>
-		<div id='globalpie'></div>
+		<div id='globalpie_content'></div>
 	</div>	
 </template>
 
@@ -58,7 +58,7 @@ export default {
 		//初始化/更新 图像  
 		initGlobalPie(){
 			 // 基于准备好的dom，初始化echarts实例
-			        var myChart = this.$echarts.init(document.getElementById('globalpie'));
+			        var myChart = this.$echarts.init(document.getElementById('globalpie_content'));
 			 
 			        myChart.setOption({
     tooltip: {
@@ -105,18 +105,29 @@ export default {
 
 <style>
 		
-	#globalpie{
-		height: 400px;
-		width: 500px;
+	#globalpie_content{
+		height: 80%;
+		width: 100%;
 		display: inline-block;
-		/*border-style: solid;
-		border-width: 5px;*/
 	}
 	
 	#globalpie_title{
 		font-size: 20px;
 		font-weight: 600;
 		color:#ffffff;
+	}
+	
+	#globalpie{
+		height:45%;
+		width:90%;
+		
+		margin: 0 auto;
+		margin-top:5%; 
+	}
+	
+	#globalpie_content canvas{
+		height:100%;
+		width:100%;
 	}
 </style>
 

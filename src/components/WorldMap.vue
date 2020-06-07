@@ -1,7 +1,7 @@
 <template>
-	<div>
+
 		<div class='chart' id='chart'></div>
-	</div>	
+
 </template>
 
 <script>
@@ -230,9 +230,10 @@
 <style>
 		
 	#chart{
-		width:900px;
-		height:700px;
+		width:90%;
+		height:69%;
 		margin: 0 auto;
+		margin-top:5% ;
 		display: inline-block;
 	}
 </style>

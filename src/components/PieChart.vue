@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div id="piechart">
 		<p id="piechart_title">{{name}}病例比例</p>
-		<div id='piechart'></div>
+		<div id='piechart_content'></div>
 	</div>	
 </template>
 
@@ -34,7 +34,7 @@ export default {
 	  methods:{
 		initPie(){
 			 // 基于准备好的dom，初始化echarts实例
-			        var myChart = this.$echarts.init(document.getElementById('piechart'));
+			        var myChart = this.$echarts.init(document.getElementById('piechart_content'));
 			 
 			        myChart.setOption({
 			            series : [
@@ -67,17 +67,29 @@ export default {
 
 <style>
 		
-	#piechart{
-		height: 400px;
-		width: 500px;
+	#piechart_content{
+		height: 80%;
+		width: 100%;
 		display: inline-block;
-		/*border-style: solid;
-		border-width: 5px;*/
 	}
 	
 	#piechart_title{
 		font-size: 20px;
 		font-weight: 600;
 		color:#ffffff;
+	}
+	
+	#piechart{
+		height:45%;
+		width:90%;
+		
+		margin: 0 auto;
+		margin-top:5%; 
+	}
+	
+
+	#piechart_content canvas{
+		height:100%;
+		width:100%;
 	}
 </style>

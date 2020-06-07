@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="msg_contain">
 	<div class="clock">
 		<p class="title">世界的疫情天眼<hr/></p>
 	    <p class="date">{{ date }}</p>
@@ -73,6 +73,11 @@
 </script>
 
 <style>
+	
+	.msg_contain{
+		width:100%;
+	}
+	
 	.clock p {
 	  margin: 0;
 	  padding: 0;
@@ -84,8 +89,8 @@
 	  font-family: 'Share Tech Mono', monospace;
 	  color: #ffffff;
 	  text-align: center;
-	  height: 220px;
-	  width: 500px;
+	  height: 30%;
+	  width: 49%;
 	  /*position: absolute;
 	  left: 50%;
 	  top: 50%;*/

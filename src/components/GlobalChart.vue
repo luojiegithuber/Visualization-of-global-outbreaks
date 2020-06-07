@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div id="globalchart">
 		<p id="globalchart_title">海外各病例较昨日增长柱状图</p>
-		<div id='globalchart'></div>
+		<div id='globalchart_content'></div>
 	</div>	
 </template>
 
@@ -86,7 +86,7 @@ export default {
 		  
 		initGlobalChart(){
 			 // 基于准备好的dom，初始化echarts实例
-			        var myChart = this.$echarts.init(document.getElementById('globalchart'));
+			        var myChart = this.$echarts.init(document.getElementById('globalchart_content'));
 			 
 			        myChart.setOption({
     tooltip: {
@@ -208,9 +208,9 @@ export default {
 
 <style>
 		
-	#globalchart{
-		height: 400px;
-		width: 500px;
+	#globalchart_content{
+		height: 80%;
+		width: 100%;
 		display: inline-block;
 	}
 	
@@ -218,6 +218,19 @@ export default {
 		font-size: 20px;
 		font-weight: 600;
 		color:#ffffff;
+	}
+	
+	#globalchart{
+		height:45%;
+		width:90%;
+		
+		margin: 0 auto;
+		margin-top:5%; 
+	}
+	
+	#globalchart_content canvas{
+		height:100%;
+		width:100%;
 	}
 </style>
 

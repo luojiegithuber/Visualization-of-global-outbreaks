@@ -7,7 +7,7 @@
 	  </div>
 	  
 	  <div class="pie_line_contain2">
-	  <my-clock></my-clock><br/><br/>
+	    <my-clock></my-clock>
 
 	  <my-worldmap v-if="isMap"></my-worldmap>
 	  <my-scatter v-if="isScatter"></my-scatter>
@@ -186,13 +186,19 @@
 </script>
 
 <style>
+	
+	
+	
+	
 .pie_line_contain1{
 	border-color:#fff;
 	border-style: solid;
 	border-width: 2px;
 	text-align: center;
     
-    height: 1000px;
+	flex:1 1 400px;/***/
+	
+	height: 100%;
 
 }
 
@@ -202,15 +208,20 @@
 	border-width: 2px;
 	text-align: center;
 
-    height: 1000px;
+    flex:2 1 800px;/*****/
+    
+    height: 100%;
 }
 
 #home_div{
-	display: flex;
-    width: 100%;
-    border-color:#444;
-    border-style: solid;
-    border-width: 2px;
+	width: 100%;
+	height:100%;
+
+    display: flex;/*关键*/
+    border: 2px solid #ccc;
+
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 </style>
